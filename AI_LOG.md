@@ -51,18 +51,3 @@
 | Debris collision and invincibility | ยังไม่บันทึก | __________________ |
 | Pause/Resume and Restart | ยังไม่บันทึก | __________________ |
 | Best Score persistence | ยังไม่บันทึก | __________________ |
-
-## 7. Student contribution / ส่วนที่สมาชิกทีมทำจริง
-
-> **กรอกก่อนส่งงาน:** ใครรับผิดชอบส่วนใด, แก้อะไรจากคำตอบ AI, พบปัญหาใด, แก้และทดสอบอย่างไร, และอะไรเป็นการตัดสินใจของทีม
-
-- Member / Responsibility: __________________________________________
-- Code reviewed or changed independently: __________________________
-- Bug found and fix verified: ______________________________________
-- Lessons learned about OOP: _______________________________________
-
-## 8. AI limitations and academic integrity
-
-- AI-generated suggestions/code must be reviewed, tested and understood by the submitters
-- This log does not claim that the students wrote all generated code themselves
-- The final submission should follow the course's AI collaboration/disclosure rules

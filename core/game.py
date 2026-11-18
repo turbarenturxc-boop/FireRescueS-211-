@@ -10,7 +10,7 @@ from core.states import MenuState
 class Game:
     def __init__(self):
         pygame.init()
-        pygame.display.set_caption("Fire Rescue - Endless Inferno [SF211 OOP]")
+        pygame.display.set_caption("BLAZE Breakers: Endless Inferno")
         self.screen = pygame.display.set_mode((WIDTH*SCALE, HEIGHT*SCALE))
         self.canvas = pygame.Surface((WIDTH, HEIGHT)).convert()
         self.clock = pygame.time.Clock()

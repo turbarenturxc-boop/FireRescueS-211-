@@ -67,8 +67,8 @@ class MenuState(GameState):
     def draw(self, screen):
         self.game.scene.draw_building(screen, self.time)
         self.sprites.draw(screen)
-        self.game.scene.draw_overlay(screen, "FIRE RESCUE", [
-            "ENDLESS INFERNO / OOP EDITION",
+        self.game.scene.draw_overlay(screen, "BLAZE BREAKERS", [
+            "Save the World!",
             "FIRE DEMON ATTACKS THE TOWER",
             "MOVE: ARROWS / WASD",
             "HOLD SPACE: WATER / RESCUE",
