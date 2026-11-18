@@ -1,0 +1,68 @@
+# AI_LOG.md — Fire Rescue: Endless Inferno (SF211)
+
+## 1. Purpose / วัตถุประสงค์
+
+บันทึกนี้แสดงการใช้ ChatGPT ช่วยคิดโครงสร้างและปรับโค้ดเกม Fire Rescue เพื่อให้ตรวจสอบการทำงานร่วมกับ AI ได้ตามเงื่อนไข Oral Defense ของรายวิชา SF211 **ผู้จัดทำควรแก้ไขและเพิ่มเติมตามสิ่งที่เกิดขึ้นจริงก่อนส่ง**
+
+## 2. AI tools
+
+- **ChatGPT (OpenAI)** — ใช้เป็นผู้ช่วยอธิบายหลัก OOP, ทบทวน Rubric, วิเคราะห์โครงสร้าง และสร้างร่างโค้ด/เอกสาร
+- เครื่องมืออื่น (ถ้ามี): **[ผู้จัดทำกรอกตามการใช้จริง]**
+
+## 3. Collaboration entries / รายการการใช้ AI ที่เกี่ยวกับงานนี้
+
+| งาน | AI ช่วยทำอะไร | สิ่งที่ต้องเข้าใจและตรวจสอบโดยผู้จัดทำ |
+|---|---|---|
+| ออกแบบเกม Fire Rescue | ช่วยเสนอและปรับแนวคิดเกมดับไฟ ช่วยคน และหลบ Debris/Fireball | อธิบายกติกาและเป้าหมายของเกม |
+| ทบทวน Week 10–13 | ช่วยเทียบโค้ดกับ Polymorphism, ABC, Observer และ State Pattern | ชี้ชื่อคลาส/เมธอดจริงและอธิบายเหตุผลได้ด้วยตัวเอง |
+| ทบทวน Rubric | ช่วยระบุว่าควรมีหลายคลาสที่รับผิดชอบชัดเจนข้ามโมดูล และมี UML/README/AI_LOG | ตรวจคำอธิบายให้สอดคล้องกับเกณฑ์การให้คะแนน |
+| แยก Room / RoomFire / Victim | ช่วยร่างการ Refactor จากคลาส Room เดิมเป็นองค์ประกอบ 3 คลาส | ตรวจการดับไฟ/ช่วยคน/สีและภาพในเกมไม่เปลี่ยนผิดพลาด |
+| จัดชุดส่งงาน | ช่วยแยกโค้ดออกเป็นไฟล์ `core/` และ `entities/`, สร้าง UML, README, AI_LOG และร่างชุดทดสอบ | รันเกมด้วย Pygame จริง ตอบคำถามเหตุผลการแยกไฟล์ และบันทึกผลการทดสอบจริง |
+
+## 4. Representative prompts / ตัวอย่างคำถามที่ใช้จริงในการสนทนา
+
+- "จากโค้ด firefighter จากโฟลเดอร์นี้ ถ้าจะอิงตามที่ slide week 10-13 ควรเพิ่ม function หรือลดอะไรบ้าง"
+- "แล้ว function ของเกม เช่น debris หรือ การช่วยคน"
+- "แล้วอิงตามนี้ จะได้เต็มมั้ย"
+- "อยากให้ ห้องที่ติดไฟ และ คนที่อยู่ในห้องแยก class กัน"
+- "ขอไฟล์ทั้งหมดนี่เพื่อพร้อมส่งงาน"
+
+**หมายเหตุ:** ข้อความย่อเพื่อบอกหัวข้อคำถาม ควรแนบ prompt/response เพิ่มเติมตามรูปแบบที่ผู้สอนกำหนด (ถ้ามี) และบันทึกการใช้ AI ของสมาชิกทุกคนอย่างซื่อสัตย์
+
+## 5. Design decisions / เหตุผลการออกแบบ
+
+- `GameObject(ABC)` กำหนดเมธอดบังคับให้ Sprite ที่เป็นลูกคลาส
+- `Room` ประกอบ `RoomFire` และอาจมี `Victim` เพื่อแยกหน้าที่ ไม่ใช้ inheritance ระหว่าง "ห้อง" กับ "คน"
+- `Debris` และ `Fireball` สืบทอด `Hazard` แต่ override `update()` ต่างกัน เพื่อสาธิต polymorphism
+- `ScoreManager` และ `NoticeManager` ฟัง Event เดียวกัน แยกการนับคะแนนและการแสดงข้อความจาก Gameplay
+- `GameState(ABC)` และ Stack จัดการ Menu/Play/Pause/GameOver โดยไม่มี flag หลายตัวพันกัน
+
+## 6. Verification log / บันทึกการตรวจสอบของผู้จัดทำ
+
+**รายการต่อไปนี้ต้องให้ผู้จัดทำกรอกผลจริง ไม่ควรส่งโดยอ้างว่าผ่านทั้งที่ยังไม่ได้ทดสอบ**
+
+| Test | ผลจริง (PASS/FAIL) | วันที่/ผู้ทดสอบ/หมายเหตุ |
+|---|---|---|
+| `python main.py --check` | ยังไม่บันทึก | __________________ |
+| เปิดเกมและแสดง Menu | ยังไม่บันทึก | __________________ |
+| Player movement (Arrows/WASD) | ยังไม่บันทึก | __________________ |
+| Fire extinguish (+100) | ยังไม่บันทึก | __________________ |
+| Rescue after fire out (+250) | ยังไม่บันทึก | __________________ |
+| Debris collision and invincibility | ยังไม่บันทึก | __________________ |
+| Pause/Resume and Restart | ยังไม่บันทึก | __________________ |
+| Best Score persistence | ยังไม่บันทึก | __________________ |
+
+## 7. Student contribution / ส่วนที่สมาชิกทีมทำจริง
+
+> **กรอกก่อนส่งงาน:** ใครรับผิดชอบส่วนใด, แก้อะไรจากคำตอบ AI, พบปัญหาใด, แก้และทดสอบอย่างไร, และอะไรเป็นการตัดสินใจของทีม
+
+- Member / Responsibility: __________________________________________
+- Code reviewed or changed independently: __________________________
+- Bug found and fix verified: ______________________________________
+- Lessons learned about OOP: _______________________________________
+
+## 8. AI limitations and academic integrity
+
+- AI-generated suggestions/code must be reviewed, tested and understood by the submitters
+- This log does not claim that the students wrote all generated code themselves
+- The final submission should follow the course's AI collaboration/disclosure rules

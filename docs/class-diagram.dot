@@ -1,0 +1,143 @@
+// SF211 Fire Rescue — actual classes and relationships
+digraph FireRescue_UML {
+	bgcolor=white nodesep=0.40 outputorder=edgesfirst pad=0.32 rankdir=TB ranksep=0.72 ratio=auto splines=spline
+	node [fontname="DejaVu Sans" fontsize=11 shape=plain]
+	edge [arrowsize=0.75 color="#59677A" fontname="DejaVu Sans" fontsize=9 penwidth=1.4]
+	GameObject [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#71869F" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#D8E6F7" ALIGN="CENTER"><B>«abstract» GameObject</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ image: Surface<BR ALIGN="LEFT"/>+ rect: Rect</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ update(dt): void<BR ALIGN="LEFT"/>+ draw(): void</FONT></TD></TR>
+      </TABLE>>]
+	Room [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#71869F" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#E8EFF9" ALIGN="CENTER"><B>Room</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ col, row: int<BR ALIGN="LEFT"/>+ flame: RoomFire<BR ALIGN="LEFT"/>+ victim: Victim | None</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ ignite(strength): void<BR ALIGN="LEFT"/>+ spray(dt): bool<BR ALIGN="LEFT"/>+ rescue(dt): bool<BR ALIGN="LEFT"/>+ update(dt), draw()</FONT></TD></TR>
+      </TABLE>>]
+	RoomFire [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#E3AA66" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#FFF0D9" ALIGN="CENTER"><B>RoomFire</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">- _intensity: float</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ intensity: float {property}<BR ALIGN="LEFT"/>+ ignite(strength): void<BR ALIGN="LEFT"/>+ spray(dt): bool<BR ALIGN="LEFT"/>+ draw(surface, clock)</FONT></TD></TR>
+      </TABLE>>]
+	Victim [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#6CA891" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#E4F6EF" ALIGN="CENTER"><B>Victim</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ rescued: bool<BR ALIGN="LEFT"/>+ rescue_progress: float</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ rescue(dt): bool<BR ALIGN="LEFT"/>+ draw(surface, clock, col, font)</FONT></TD></TR>
+      </TABLE>>]
+	Firefighter [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#71869F" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#E8EFF9" ALIGN="CENTER"><B>Firefighter</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">- _lives: int<BR ALIGN="LEFT"/>+ col, row: int</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ lives: int {property}<BR ALIGN="LEFT"/>+ move(dc, dr)<BR ALIGN="LEFT"/>+ take_damage(): bool<BR ALIGN="LEFT"/>+ update(dt), draw()</FONT></TD></TR>
+      </TABLE>>]
+	Hazard [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#71869F" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#E8EFF9" ALIGN="CENTER"><B>Hazard</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ x, y: float<BR ALIGN="LEFT"/>+ landed: bool</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ hitbox: Rect<BR ALIGN="LEFT"/>+ swept_hitbox: Rect<BR ALIGN="LEFT"/>+ remember_position()</FONT></TD></TR>
+      </TABLE>>]
+	Debris [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#71869F" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#E8EFF9" ALIGN="CENTER"><B>Debris</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ speed: float</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ update(dt), draw()</FONT></TD></TR>
+      </TABLE>>]
+	Fireball [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#71869F" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#E8EFF9" ALIGN="CENTER"><B>Fireball</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ target_room: Room<BR ALIGN="LEFT"/>+ duration, age: float</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ update(dt), draw()</FONT></TD></TR>
+      </TABLE>>]
+	FireDemon [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#71869F" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#E8EFF9" ALIGN="CENTER"><B>FireDemon</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ time: float</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ throw_fire(room, threat): Fireball<BR ALIGN="LEFT"/>+ update(dt), draw()</FONT></TD></TR>
+      </TABLE>>]
+	Particle [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#71869F" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#E8EFF9" ALIGN="CENTER"><B>Particle</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ life, vx, vy: float</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ update(dt), draw()</FONT></TD></TR>
+      </TABLE>>]
+	GameState [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#71869F" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#D8E6F7" ALIGN="CENTER"><B>«abstract» GameState</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ game: Game</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ handle_event(event)<BR ALIGN="LEFT"/>+ update(dt)<BR ALIGN="LEFT"/>+ draw(screen)<BR ALIGN="LEFT"/>+ enter(), exit()</FONT></TD></TR>
+      </TABLE>>]
+	MenuState [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#71869F" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#E8EFF9" ALIGN="CENTER"><B>MenuState</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ sprites: Group</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ handle_event(event)<BR ALIGN="LEFT"/>+ update(dt), draw(screen)</FONT></TD></TR>
+      </TABLE>>]
+	PlayState [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#71869F" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#E8EFF9" ALIGN="CENTER"><B>PlayState</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ rooms: list[Room]<BR ALIGN="LEFT"/>+ all_sprites: Group<BR ALIGN="LEFT"/>+ player: Firefighter</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ _action(dt)<BR ALIGN="LEFT"/>+ _collisions()<BR ALIGN="LEFT"/>+ update(dt), draw(screen)</FONT></TD></TR>
+      </TABLE>>]
+	PauseState [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#71869F" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#E8EFF9" ALIGN="CENTER"><B>PauseState</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">&#160;</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ handle_event(event)<BR ALIGN="LEFT"/>+ update(dt), draw(screen)</FONT></TD></TR>
+      </TABLE>>]
+	GameOverState [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#71869F" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#E8EFF9" ALIGN="CENTER"><B>GameOverState</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ elapsed: float</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ handle_event(event)<BR ALIGN="LEFT"/>+ update(dt), draw(screen)</FONT></TD></TR>
+      </TABLE>>]
+	Game [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#A88ABE" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#F3E6FB" ALIGN="CENTER"><B>Game</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ state_stack: list[GameState]<BR ALIGN="LEFT"/>+ observers: list</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ change_state(state)<BR ALIGN="LEFT"/>+ push_state(state)<BR ALIGN="LEFT"/>+ pop_state()<BR ALIGN="LEFT"/>+ run()</FONT></TD></TR>
+      </TABLE>>]
+	ScoreManager [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#A88ABE" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#F3E6FB" ALIGN="CENTER"><B>ScoreManager</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">- _score: int<BR ALIGN="LEFT"/>- _best: int</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ handle_event(event)<BR ALIGN="LEFT"/>+ save(), reset()</FONT></TD></TR>
+      </TABLE>>]
+	NoticeManager [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#A88ABE" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#F3E6FB" ALIGN="CENTER"><B>NoticeManager</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ message: str<BR ALIGN="LEFT"/>+ timer: float</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ handle_event(event)<BR ALIGN="LEFT"/>+ update(dt)</FONT></TD></TR>
+      </TABLE>>]
+	Scene [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" COLOR="#A88ABE" CELLPADDING="6" BGCOLOR="white">
+      <TR><TD BGCOLOR="#F3E6FB" ALIGN="CENTER"><B>Scene</B></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ font_sm, font_md, font_lg</FONT></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT"><FONT POINT-SIZE="10">+ draw_building()<BR ALIGN="LEFT"/>+ draw_hud()<BR ALIGN="LEFT"/>+ draw_overlay()</FONT></TD></TR>
+      </TABLE>>]
+	Room -> GameObject [arrowhead=empty]
+	Firefighter -> GameObject [arrowhead=empty]
+	Hazard -> GameObject [arrowhead=empty]
+	FireDemon -> GameObject [arrowhead=empty]
+	Particle -> GameObject [arrowhead=empty]
+	Debris -> Hazard [arrowhead=empty]
+	Fireball -> Hazard [arrowhead=empty]
+	MenuState -> GameState [arrowhead=empty]
+	PlayState -> GameState [arrowhead=empty]
+	PauseState -> GameState [arrowhead=empty]
+	GameOverState -> GameState [arrowhead=empty]
+	Room -> RoomFire [label=1 arrowhead=none arrowtail=diamond color="#7A8794" dir=back]
+	Room -> Victim [label="0..1" arrowhead=none arrowtail=diamond color="#7A8794" dir=back]
+	Game -> GameState [label="state stack" arrowhead=none arrowtail=diamond color="#7A8794" dir=back]
+	PlayState -> Room [label=many arrowhead=vee color="#B1BCC8" style=dashed]
+	PlayState -> Firefighter [label=player arrowhead=vee color="#B1BCC8" style=dashed]
+	PlayState -> FireDemon [label=boss arrowhead=vee color="#B1BCC8" style=dashed]
+	PlayState -> Hazard [label=hazards arrowhead=vee color="#B1BCC8" style=dashed]
+	Game -> ScoreManager [label=observer arrowhead=vee color="#B1BCC8" style=dashed]
+	Game -> NoticeManager [label=observer arrowhead=vee color="#B1BCC8" style=dashed]
+	Game -> Scene [label=view arrowhead=vee color="#B1BCC8" style=dashed]
+	Fireball -> Room [label=target arrowhead=vee color="#B1BCC8" style=dashed]
+	FireDemon -> Fireball [label=creates arrowhead=vee color="#B1BCC8" style=dashed]
+}
