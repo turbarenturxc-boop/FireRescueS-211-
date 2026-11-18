@@ -1,9 +1,3 @@
-# FIRE RESCUE: ENDLESS INFERNO
-
-**SF211 Object-Oriented Programming — Term Project (Python + Pygame)**
-
-เกมแนว Pixel Art ดับไฟและช่วยผู้ประสบภัยในอาคาร ผู้เล่นต้องดับไฟ ช่วยคน และหลบเศษซากอาคาร (`Debris`) กับลูกไฟ (`Fireball`) ของปีศาจ ระบบจะเพิ่มความยากตามเวลาที่เล่น และบันทึกคะแนนสูงสุดไว้สำหรับการเล่นครั้งต่อไป
-
 ## 1. Prerequisites / สิ่งที่ต้องติดตั้ง
 
 - Python 3.11 ขึ้นไป (ใช้ Python 3.14 บน Windows ได้ ถ้ามี pygame-ce รุ่นที่รองรับ)
